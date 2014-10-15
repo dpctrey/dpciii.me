@@ -226,7 +226,7 @@ p.separator {
 }
 
 .separator1 .bg {
-	background: url(http://curtisthemanicpirate.tumblr.com/post/14686981597) repeat center;
+	background: url(http://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) repeat center;
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
 	margin: 0 auto;
@@ -238,15 +238,15 @@ p.separator {
 }
 
 .separator1 .bg2 {
-	background: url(http://curtisthemanicpirate.tumblr.com/post/14686981597) repeat center;
+	background: url(http://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) repeat center;
 }
 
 .separator1 .bg3 {
-	background: url(http://curtisthemanicpirate.tumblr.com/post/14686981597) repeat center;
+	background: urlhttp://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) repeat center;
 }
 
 .separator1 .bg4 {
-	background: url(http://curtisthemanicpirate.tumblr.com/post/14686981597) repeat center;
+	background: url(http://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) repeat center;
 }
 
 
@@ -314,7 +314,7 @@ nav a:hover {
 }
 
 #intro .bg1 {
-	background: url(../images/bg1.jpg) 0 0 repeat;	
+	background: url(http://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) 0 0 repeat;	
 	background-position: 0 0 !important;
 	background-size: cover;
 	-webkit-background-size: cover;
