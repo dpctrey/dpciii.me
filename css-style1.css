@@ -314,7 +314,7 @@ nav a:hover {
 }
 
 #intro .bg1 {
-	background: url(http://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) 0 0 repeat;	
+	background: url(../images/bg1.jpg) 0 0 repeat;	
 	background-position: 0 0 !important;
 	background-size: cover;
 	-webkit-background-size: cover;
