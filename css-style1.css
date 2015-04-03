@@ -216,12 +216,12 @@ p.separator {
 	position: relative;
 	z-index: 200;
 	text-align: center;
-	padding-top: 100px;
+	padding-top: 90px;
 }
 
 .separator1 {
 	width: 100%;
-	height: 150px;
+	height: 90px;
 	position: relative;
 }
 
@@ -234,22 +234,22 @@ p.separator {
 	position: absolute;
 	z-index: 200;
 	width: 100%;
-	height: 150px;
+	height: 90px;
 }
 
 .separator1 .bg2 {
 	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
-	height: 150px;
+	height: 90px;
 }
 
 .separator1 .bg3 {
 	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
-	height: 150px;
+	height: 90px;
 }
 
 .separator1 .bg4 {
 	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
-	height: 150px;
+	height: 90px;
 }
 
 
