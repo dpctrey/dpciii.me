@@ -216,12 +216,12 @@ p.separator {
 	position: relative;
 	z-index: 200;
 	text-align: center;
-	padding-top: 240px;
+	padding-top: 100px;
 }
 
 .separator1 {
 	width: 100%;
-	height: 250px;
+	height: 150px;
 	position: relative;
 }
 
@@ -234,19 +234,22 @@ p.separator {
 	position: absolute;
 	z-index: 200;
 	width: 100%;
-	height: 500px;
+	height: 150px;
 }
 
 .separator1 .bg2 {
 	background: url(http://www.colorhexa.com/ff3333.png) repeat center;
+	height: 150px;
 }
 
 .separator1 .bg3 {
 	background: urlhttp://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) repeat center;
+	height: 150px;
 }
 
 .separator1 .bg4 {
 	background: url(http://41.media.tumblr.com/tumblr_lwochoxOYf1r72seyo1_1280.jpg) repeat center;
+	height: 150px;
 }
 
 
