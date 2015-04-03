@@ -5,7 +5,33 @@
     <title>Jamestown</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script type="text/javascript">
-    var templateDir = "http://wwws.superfish.com/wp-content/themes/SCRN";
+    $(function() {
+    // Stick the #nav to the top of the window
+    var nav = $('#nav');
+    var navHomeY = nav.offset().top;
+    var isFixed = false;
+    var $w = $(window);
+    $w.scroll(function() {
+        var scrollTop = $w.scrollTop();
+        var shouldBeFixed = scrollTop > navHomeY;
+        if (shouldBeFixed && !isFixed) {
+            nav.css({
+                position: 'fixed',
+                top: 0,
+                left: nav.offset().left,
+                width: nav.width()
+            });
+            isFixed = true;
+        }
+        else if (!shouldBeFixed && isFixed)
+        {
+            nav.css({
+                position: 'static'
+            });
+            isFixed = false;
+        }
+    });
+});
     </script>
 
 <style>
@@ -59,7 +85,19 @@
 			h4 { color: #000000; font-size: 18px; font-family:sans-serif; }
 			p.separator { font-size: 30px !important; color: #FF3333 !important; font-family: 'Source Sans Pro',sans-serif !important; }
 			.copyright  p, .copyright  a { font-size: 14px; color: #FF3333; font-family: 'Source Sans Pro',sans-serif; }
-			
+			#floatright {
+						margin-left: auto;
+    margin-right: auto;
+    width: 22%;
+						}
+			#floatleft {
+						margin-left: auto;
+    margin-right: auto;
+    width: 21%;
+						}
+			#centerthis {
+
+						}
 			</style>
 <!-- All in One SEO Pack 2.0.2 by Michael Torbert of Semper Fi Web Design[502,518] -->
 <meta name="description" content="Visual Search App Allows you to Find the Decor that You Just Saw" />
@@ -86,7 +124,7 @@
 <li id="menu-item-97" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://wwws.superfish.com#what-we-solve-2">About Us</a></li>
 <li id="menu-item-117" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://wwws.superfish.com#applications">Pricing</a></li>
 
-<li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://wwws.superfish.com#about">Request Us!</a></li>
+<li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://wwws.superfish.com#about">Maintenance</a></li>
 <li id="menu-item-617" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#contactt">Contact</a></li>
 </ul>    </nav> <script type="text/javascript">
 <!-- 
@@ -127,7 +165,7 @@ function ajaxFunction(){
 
 //-->
 </script>   
-                    <div class="bg " id="what-we-solve-2"
+                    <div class="bg " id="aboutus"
             >
             <div class="container">
                 <div class="sixteen columns">
@@ -139,12 +177,10 @@ function ajaxFunction(){
 
                  <div class="clear"></div>
 
-            <p>
-			Thank you for considering Audio Visual Experience for your event. My name is Tony Gravette. I have been Director of Instructional Media and Special Events at Jacksonville State University for the past nine years. Although the University and my business are totally separate, I want you to know my professional background. I have a Master’s degree in Education and Bachelor's degree in Business Finance. I have provided audio for some of the most high profile events in the area, and I will treat your event the same way. Although this is technically a side business for me, I take it very seriously. I started Audio Visual Experience in 2010. My first show was for a friend’s daughter’s 16th birthday party. It was a lot of fun, and I have been hooked ever since. My daughter Nichole and I have been performing a show at Heroes in Jacksonville Alabama every Friday for the past two years. If you would like to see what we do, come by and say hello. Hope to see you soon.</p>
-<p>			
-<img src="https://cloud.githubusercontent.com/assets/9140229/4605165/e6d1572a-51cf-11e4-8fcc-8a471ec18570.png" alt="setup" />    
-<img height="327"  src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/164999_863479449669_436253240_n.jpg?oh=63580310039960c391f597cc97f7bcb5&oe=54B2E1AE&__gda__=1422497211_127818963972dc653488ac4d9425c2f0" alt="setup" />  
-</p>
+            <p style="font-size: 22px; text-align: center; line-height: 140%;">The ultimate in exclusive living! Designed with quality, comfort and leisure in mind. Ideally located in the historic city of Jacksonville, Alabama at the foot hills of the Appalaichians. At less than 0.1 miles from campus, it is a quick walk to Jacksonville State University. Enjoy the air-conditioned comfort of luxuriously appointed two bedroom townhouse or the built in effeciency of highly functional one bedroom apartment. Invite friends to visit with the assurance of impressing them with your taste in selecting Jamestown as your place to live!
+			</p>
+	
+
 
 			
                 
@@ -166,60 +202,15 @@ function ajaxFunction(){
 
                  <div class="clear"></div>
 
-            <p style="font-size: 24px; text-align: center; line-height: 140%;">Always Competitive! iWillDJ is always adding new features to the show and the music. <br />
-Our services are always carried out in a professional manner, no matter the occasion. </p>
+            <p style="font-size: 24px; text-align: center; line-height: 140%;">Jamestown Apartments has the place for you! <br /></p>
+			<p style="font-size: 24px; text-align: center; line-height: 140%;">Two-bedroom town-houses: $550 per month with $550 deposit</p>
+			<p style="font-size: 24px; text-align: center; line-height: 140%;">One-bedroom apartments: $350 per month with $350 deposit</p>
 <p>&nbsp;</p>
-<div class="eight columns "><a href="http://www.dpciii.me/iwill.html"><img style="max-width:450px; width:100%;" alt="LikeThat Décor" src="https://cloud.githubusercontent.com/assets/9140229/4608875/4d9f038c-528c-11e4-82c8-9472907088a7.jpg" /></a></div>
-<div class="eight columns ">
-<p style="font-size: 35px; text-align: left;">Weddings</p>
-<p>iWillDJ wants to make your wedding even more special. 
-<ul>
-<li>Something: $$</li>
-<li>Something: $$</li>
-<li>Something: $$</li>
-<li>Something: $$</li></ul>
-</p>
-<p><a href="http://bit.ly/1rL1pep"><img src="http://wwws.superfish.com/wp-content/uploads/2014/09/decorYouTube.png" alt="like that décor youtube video" width="72" height="44" class="alignleft size-full wp-image-1142" /></a></p>
-<p><a href="http://www.dpciii.me/iwill.html"><img class="alignleft size-full wp-image-1057" alt="itunes" src="http://wwws.superfish.com/wp-content/uploads/2013/05/itunes.png" width="150" height="44" /></a></p>
-<p><a href="http://www.dpciii.me/iwill.html"><img class="alignleft size-full wp-image-1056" alt="googleplay" src="http://wwws.superfish.com/wp-content/uploads/2013/05/googleplay.png" width="150" height="44" /></a></p>
-<p></div>
-<div class="clear"></div>
-<div class="clear"></div>
-<div class="clear"></div>
-<p>&nbsp;<br />
-&nbsp;</p>
-<div class="eight columns "></p>
-<p style="font-size: 35px; text-align: right;">Parties & Dances</p>
-<p style="text-align: right;">Something about parties that you want.
-<ul>
-<li>Something: $$</li>
-<li>Something: $$</li>
-<li>Something: $$</li>
-<li>Something: $$</li>
-</ul>
+<div id="floatleft"><a href="http://www.dpciii.me/jamestown"><img alt="town-house" src="http://i62.tinypic.com/15hmnw9.png"/></a>
+</div>
+<div id="floatright"><a href="http://www.dpciii.me/jamestown"><img alt="one bed" src="http://i61.tinypic.com/fx5dz5.png"/></a>
+</div>
 
- <a title="petmatch" href="http://www.dpciii.me/iwill">Learn more</a></p>
-<p style="text-align: right;"><a href="https://www.youtube.com/watch?v=o-AL1CaavAI"><img src="http://wwws.superfish.com/wp-content/uploads/2014/09/petYouTube.png" alt="petmatch youtube video" width="72" height="44" class="alignright size-full wp-image-1142" /></a></p>
-<p><a href="http://www.dpciii.me/iwill.html"><img class="alignright size-full wp-image-1056" alt="googleplay" src="http://wwws.superfish.com/wp-content/uploads/2013/05/googleplay.png" width="150" height="44" /></a></p>
-<p><a href="http://www.dpciii.me/iwill.html"><img class="alignright size-full wp-image-1057" alt="itunes" src="http://wwws.superfish.com/wp-content/uploads/2013/05/itunes.png" width="150" height="44" /></a><br />
-</div>
-<div class="eight columns "><a href="http://www.dpciii.me/iwill.html"><img style="max-width:450px; width:100%;" alt="PetMatch" src="http://partypleasersservices.com/wp-content/uploads/2011/10/School-dance-669x477.jpg" /></a><br />
-</div>
-<div class="clear"></div>
-<p>&nbsp;<br />
-&nbsp;<br />
-<div class="eight columns "><a href="http://www.dpciii.me/iwill.html"><img style="max-width:450px; width:100%;" alt="shop scout" src="http://foodiegang.files.wordpress.com/2009/08/shutterstock_163235741.jpg" /></a></div><br />
-<div class="eight columns ">
-<p style="font-size: 35px; text-align: left;">Venues and Bars</p>
-<p>We are at Hero's every Friday night come listen!</p>
-<p><a href="http://www.dpciii.me/iwill.html"><img class="alignleft size-full wp-image-1057" alt="itunes" src="http://wwws.superfish.com/wp-content/uploads/2013/05/itunes.png" width="150" height="44" /></a><br />
-</div></p>
-<div class="clear"></div>
-<div class="clear"></div>
-<div class="clear"></div>
-<p>&nbsp;<br />
-&nbsp;<br />
-&nbsp;</p>
                 
             </div> <!-- end container -->
         </div> <!-- end bg -->
@@ -233,14 +224,14 @@ Our services are always carried out in a professional manner, no matter the occa
                 <div class="sixteen columns">
                         <h2>
                             <span class="lines">
-                                Request Us!                            </span>
+                                Maintenance Request                           </span>
                         </h2>
                  </div> <!-- end sixteen columns -->
 
                  <div class="clear"></div>
 
             <p><center><br />
-<h3>“Fun is our mission!”</h3>
+<h3>“Making sure you live comfortable!”</h3>
 <p>&nbsp;</p>
 <p><iframe src="https://docs.google.com/forms/d/1tUmMXWUm1mk0Cfcj1uIOouRNMpBgW104m8MOaeTuIlM/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center></p>
 <div class="clear"></div>
