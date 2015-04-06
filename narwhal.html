@@ -1,190 +1,159 @@
 <!DOCTYPE html>
-<html style="margin-top: 0 !important" lang="en-US"> <!--<![endif]-->
+<html style="margin-top: 0 !important" lang="en-US">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Narwhal - AP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	
- <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 
-<style>
-#intro h1 {margin-left:250px;}
-#intro h1 img{width: 195px;
-    margin-right: 100px;}
-	#justreleased1{display:none;}
-.intro-line{margin-top: 0px; margin-bottom:0px !important;}
-@media only screen and (max-width: 1000px) {
-	#justreleased{display:none;}
-	.intro-line{margin-bottom:50px !important;}
-	#intro h1 {margin-left:1000px;}
-	#justreleased1{display:block; margin:auto; width:200px;}
-	}
-
-</style>
 <link rel='stylesheet' id='layout-css'  href='http://www.dpciii.me/css-style1.css' type='text/css' media='all' />
 
 <style type='text/css'>
 
+#intro h1 {margin-left:250px;}
+#intro h1 img{width: 195px;
+margin-right: 100px;}
+#justreleased1{display:none;}
+.intro-line{margin-top: 0px; margin-bottom:0px !important;}
+@media only screen and (max-width: 1000px) {
+#justreleased{display:none;}
+.intro-line{margin-bottom:50px !important;}
+#intro h1 {margin-left:1000px;}
+#justreleased1{display:block; margin:auto; width:200px;}
+}
 #intro .bg1 { background-image: url('http://fc01.deviantart.net/fs70/f/2011/273/e/b/narwhals__narwhals_by_beensprout-d4bedj9.jpg'); height: 90%; } 
+p, body { font-size: 16px; color: #000000; font-family:sans-serif; }
+.dark-bg p, .dark-bg { color: #F9F9F9;}
+h1 { font-size: 120px;}
+#intro h1 { color: #666666; font-family:sans-serif; }
+#intro h1.small { font-size: 65px; color: #FF3333; font-family:sans-serif; }
+.title p { font-size: 16px; color: #000000; font-family:sans-serif; }
+nav {background-color: #FF3333; position:fixed;height: 55px; width: 99.2%;}
+nav a { font-size: 16px; color: #000000 !important; font-family:sans-serif; }
+nav a:hover { color: #434343 !important; }
+h2 { font-size: 80px; color: #000000; font-family:"Comic Sans MS", cursive, sans-serif; text-shadow: 2px 2px #FF3333;  }
+.action p { font-size: 22px; color: #FF3333; font-family:sans-serif; }
+h3 {margin-top = 0px; color: #434343; font-size: 30px; font-family:sans-serif; }
+h4 { color: #000000; font-size: 18px; font-family:sans-serif; }
+p.separator { font-size: 30px !important; color: #FF3333 !important; font-family: 'Source Sans Pro',sans-serif !important; }
+.copyright  p, .copyright  a { font-size: 14px; color: #FF3333; font-family: 'Source Sans Pro',sans-serif; }
+#floatright {
+margin-left: auto;
+margin-right: auto;
+width: 22%;
+}
+#floatleft {
+margin-left: auto;
+margin-right: auto;
+width: 21%;
+}
+#transbg {
 
-			p, body { font-size: 16px; color: #000000; font-family:sans-serif; }
-			.dark-bg p, .dark-bg { color: #F9F9F9;}
-			h1 { font-size: 120px;}
-			#intro h1 { color: #666666; font-family:sans-serif; }
-			#intro h1.small { font-size: 65px; color: #FF3333; font-family:sans-serif; }
-			.title p { font-size: 16px; color: #000000; font-family:sans-serif; }
-			nav {background-color: #FF3333; position:fixed;height: 55px; width: 99.2%;}
-			nav a { font-size: 16px; color: #000000 !important; font-family:sans-serif; }
-			nav a:hover { color: #434343 !important; }
-			h2 { font-size: 80px; color: #000000; font-family:"Comic Sans MS", cursive, sans-serif; text-shadow: 2px 2px #FF3333;  }
-			.action p { font-size: 22px; color: #FF3333; font-family:sans-serif; }
-			h3 {margin-top = 0px; color: #434343; font-size: 30px; font-family:sans-serif; }
-			h4 { color: #000000; font-size: 18px; font-family:sans-serif; }
-			p.separator { font-size: 30px !important; color: #FF3333 !important; font-family: 'Source Sans Pro',sans-serif !important; }
-			.copyright  p, .copyright  a { font-size: 14px; color: #FF3333; font-family: 'Source Sans Pro',sans-serif; }
-			#floatright {
-						margin-left: auto;
-    margin-right: auto;
-    width: 22%;
-						}
-			#floatleft {
-						margin-left: auto;
-    margin-right: auto;
-    width: 21%;
-						}
-			#transbg {
-			
-			position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 110%;;
-						background: #A0A0A0;
-						background-position: center center; 
-			background_attachment: fixed;
-						-khtml-opacity:.50; 
- -moz-opacity:.50; 
- -ms-filter:"alpha(opacity=50)";
-  filter:alpha(opacity=50);
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
-  opacity:.50; 
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 110%;;
+background: #A0A0A0;
+background-position: center center; 
+background_attachment: fixed;
+-khtml-opacity:.50; 
+-moz-opacity:.50; 
+-ms-filter:"alpha(opacity=50)";
+filter:alpha(opacity=50);
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
+opacity:.50; 
 
-						}
-			#con {
-				position: relative;
-				color: black;
-				z-index:5;
-			}
-			#centerthis {
-				margin:0;
-				position:absolute;
-				top: 60%;
-				left: 50%;
-				margin-right: -50%;
-				transform: translate(-50%, -50%)
-			}
-			</style>
-<!-- All in One SEO Pack 2.0.2 by Michael Torbert of Semper Fi Web Design[502,518] -->
-<meta name="description" content="Visual Search App Allows you to Find the Decor that You Just Saw" />
+}
+#con {
+position: relative;
+color: black;
+z-index:5;
+}
+#centerthis {
+margin:0;
+position:absolute;
+top: 60%;
+left: 50%;
+margin-right: -50%;
+transform: translate(-50%, -50%)
+}
+</style>
+<meta name="description" content="Narwhal" />
 
-<link rel="canonical" href="http://wwws.dpciii.me/iwill.html" />
+<link rel="canonical" href="http://wwws.dpciii.me/narwhal.html" />
 
 </head>
-<body class="home blog">
+
+<body>
 <nav>
-        <ul id="menu-main" class="menu"><li id="menu-item-135" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a href="http://www.dpciii.me/jamestown">Home</a></li>
-<li id="lines" class="lines"><a href="http://www.dpciii.me/narwhal#aboutus">About Us</a></li>
-<li id="menu-item-117" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://wwws.superfish.com#applications">Pricing</a></li>
+    <ul id="menu-main" class="menu">
+		<li id="menu-item-135"><a href="http://www.dpciii.me/narwhal">Home</a></li>
+		<li id="lines" class="lines"><a href="http://www.dpciii.me/narwhal#aboutus">About Us</a></li>
+		<li id="menu-item-117" ><a href="http://www.dpciii.me/narwhal#features">Features</a></li>
+		<li id="menu-item-99"><a href="http://www.dpciii.me/narwhal#download">Download</a></li>
+		<li id="spot1"><a href="http://www.dpciii.me/narwhal#contact">Contact</a></li>
+	</ul>    
+</nav> 
 
-<li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://wwws.superfish.com#about">Maintenance</a></li>
-<li id="spot1" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#contactt">Contact</a></li>
-</ul>    </nav> 
-
-    <div id="intro">
-    
-        <div class="bg1"></div>
-        
-        <div class="title">
-            
-						<div id='con'>
-                            <h2><center>Narwhal</center></h2>
-							<h3>Argument Parser</h3>
-							</div>
-							<div id='transbg'></div>
-                                   
+<div id="intro">
+	<div class="bg1"></div>
+    <div class="title">
+		<div id='con'>
+			<h2><center>Narwhal</center></h2>
+			<h3>Argument Parser</h3>
+			</div>
+			<div id='transbg'></div>
         </div> <!-- end title -->
     </div> <!-- end intro -->
-
-   
-                    <div class="bg " id="aboutus"
-            >
-            <div class="container">
-                <div class="sixteen columns">
-                        <h2>
-                            <a id="lines"></a>
-                                Meet the Team                            </span>
-                        </h2>
-                 </div> <!-- end sixteen columns -->
-
-                 <div class="clear"></div>
-
-            <p style="font-size: 22px; text-align: center; line-height: 140%;">We are the CS333 Narwhal team at Jacksonville State University. We strive for excellence over all other groups. 
-			</p>
-			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-			<div id='centerthis'>
-			<img alt="" src="http://i1325.photobucket.com/albums/u622/amateurpro/ad3c811d-6e1c-4082-ade0-00c06faa4ec2_zpszbm3e8n7.png"/>
-			</div>
-
-
-			
-                
+	<div class="bg " id="aboutus">
+		<div class="container">
+			<div class="sixteen columns">
+				<h2>
+					<a id="lines"></a>
+						Meet the Team                            </span>
+				</h2>
+            </div>
+            <div class="clear"></div>
+				<p style="font-size: 22px; text-align: center; line-height: 140%;">We are the CS333 Narwhal team at Jacksonville State University. We strive for excellence over all other groups.</p>
+				<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+				<div id='centerthis'>
+					<img alt="" src="http://i1325.photobucket.com/albums/u622/amateurpro/ad3c811d-6e1c-4082-ade0-00c06faa4ec2_zpszbm3e8n7.png"/>
+				</div> 
             </div> <!-- end container -->
         </div> <!-- end bg -->
         <div id="separator_1" class="separator1">
             <div class="bg2 bg" style=" "></div>
-            <p class="separator"></p>
+				<p class="separator"></p>
         </div>
-                    <div class="bg " id="applications"
-            >
+        <div class="bg " id="applications">
             <div class="container">
                 <div class="sixteen columns">
-                        <h2>
-                            <span class="lines">
-                                Pricing                            </span>
-                        </h2>
-                 </div> <!-- end sixteen columns -->
-
-                 <div class="clear"></div>
-
-            <p style="font-size: 24px; text-align: center; line-height: 140%;">Jamestown Apartments has the place for you! <br /></p>
-			<p style="font-size: 24px; text-align: center; line-height: 140%;">Two-bedroom town-houses: $550 per month with $550 deposit</p>
-			<p style="font-size: 24px; text-align: center; line-height: 140%;">One-bedroom apartments: $350 per month with $350 deposit</p>
-<p>&nbsp;</p>
-<div id="floatleft"><a href="http://www.dpciii.me/jamestown"><img alt="town-house" src="http://i62.tinypic.com/15hmnw9.png"/></a>
-</div>
-<div id="floatright"><a href="http://www.dpciii.me/jamestown"><img alt="one bed" src="http://i61.tinypic.com/fx5dz5.png"/></a>
-</div>
-
-                
-            </div> <!-- end container -->
-        </div> <!-- end bg -->
+					<h2>  
+						Features
+					</h2>
+                </div> <!-- end sixteen columns -->
+                <div class="clear"></div>
+				<p style="font-size: 24px; text-align: center; line-height: 140%;">Jamestown Apartments has the place for you! <br /></p>
+				<p style="font-size: 24px; text-align: center; line-height: 140%;">Two-bedroom town-houses: $550 per month with $550 deposit</p>
+				<p style="font-size: 24px; text-align: center; line-height: 140%;">One-bedroom apartments: $350 per month with $350 deposit</p>
+				<p>&nbsp;</p>
+			</div>  
+        </div> <!-- end container -->
         <div id="separator_2" class="separator1">
             <div class="bg3 bg" style=" "></div>
-            <p class="separator"></p>
+				<p class="separator"></p>
         </div>
-                    <div class="bg " id="about"
-            >
+		<div class="bg " id="about">
             <div class="container">
                 <div class="sixteen columns">
                         <h2>
-                            <span class="lines">
-                                Maintenance Request                           </span>
+                            Download
                         </h2>
-                 </div> <!-- end sixteen columns -->
-
-                 <div class="clear"></div>
-
-            <p><center><br />
+                </div> <!-- end sixteen columns -->
+                <div class="clear"></div>
+				<p><center><br />
 <h3>“Making sure you live comfortable!”</h3>
 <p>&nbsp;</p>
 <p><iframe src="https://docs.google.com/forms/d/1tUmMXWUm1mk0Cfcj1uIOouRNMpBgW104m8MOaeTuIlM/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center></p>
@@ -208,11 +177,6 @@
             </div> <!-- end sixteen columns -->
 
                             <div class="sixteen columns">
-                    <p>For media inquiries, please contact 
-/* <![CDATA[ */
-(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
-/* ]]> */
-</script></p>
                 </div> <!-- end sixteen columns -->
                         
             <div class="clear"></div>
@@ -254,131 +218,6 @@ Jacksonville, AL               </div> <!-- end contact-info -->
         </div> <!-- end container -->
         
     </div> <!-- end contact -->
-
-    
-    
-            
-          
-<!-- JS
-    ================================================== -->
-  
-  <!-- fancybox -->
-  <script type="text/javascript">
-    function scrollTo(target){
-          var myArray = target.split('#');
-          var targetPosition = jQuery('#' + myArray[1]).offset().top;
-          jQuery('html,body').animate({ scrollTop: targetPosition}, 'slow');
-        }
-    jQuery(document).ready(function() {
-
-        jQuery("nav").sticky({topSpacing:0});
-
-        /* This is basic - uses default settings */
-      
-        jQuery("a[class^='prettyPhoto']").prettyPhoto({
-            social_tools: false,
-            theme: 'light_square'
-          });
-      
-        /* Using custom settings */
-      
-        jQuery('.proj-img').hover(function() {
-            jQuery(this).find('i').stop().animate({
-              opacity: 0.8
-            }, 'fast');
-            jQuery(this).find('a').stop().animate({
-              "top": "0"
-            });
-          }, function() {
-            jQuery(this).find('i').stop().animate({
-              opacity: 0
-            }, 'fast');
-            jQuery(this).find('a').stop().animate({
-              "top": "-600px"
-            });
-        });
-
-          jQuery('.flexslider').flexslider({
-            animation: "slide",
-            slideshow: true,
-            slideshowSpeed: 3500,
-            animationSpeed: 1000
-          });
-
-          jQuery('nav ul').mobileMenu({
-               defaultText: 'Navigate to...',
-               className: 'mobile-menu',
-               subMenuDash: '&ndash;'
-          });
-
-    });
-    
-  </script>
-    
-    
-    
-<!-- End Document
-================================================== -->
-
-<!-- Google Code for Lead Conversion Page -->
-<script type="text/javascript">
-/ <![CDATA[ /
-var google_conversion_id = 1052175684;
-var google_conversion_language = "en";
-var google_conversion_format = "2";
-var google_conversion_color = "ffffff";
-var google_conversion_label = "AMQsCP7P2QYQxNrb9QM";
-var google_conversion_value = 0;
-var google_remarketing_only = false;
-/ ]]> /
-</script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-</script>
-<noscript>
-<div style="display:inline;">
-<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1052175684/?value=0&label=AMQsCP7P2QYQxNrb9QM&guid=ON&script=0"/>
-</div>
-</noscript>
-
-<!--Code for Google+ Tracking-->
-<a href="https://plus.google.com" rel="publisher"></a>
-
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-6605323-8']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
- <script type='text/javascript' src='http://wwws.superfish.com/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.36.0-2013.06.16'></script>
-<script type='text/javascript'>
-/* <![CDATA[ */
-var _wpcf7 = {"loaderUrl":"http:\/\/wwws.superfish.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ...","cached":"1"};
-/* ]]> */
-</script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=3.4.2'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.sticky.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.smooth-scroll.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/contact-form.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.easing.1.3.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.prettyPhoto.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.inview.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/custom.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.isotope.min.js?ver=1.0'></script>
-<script type='text/javascript' src='http://wwws.superfish.com/wp-content/themes/SCRN/js/jquery.mobilemenu.js?ver=1.0'></script>
- 
-<script type="text/javascript">
-/* <![CDATA[ */
-(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&"/cdn-cgi/l/email-protection"==a.substr(0 ,27)){s='';j=28;r=parseInt(a.substr(j,2),16);for(j+=2;a.length-j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
-/* ]]> */
-</script>
+-
 </body>
 </html>
