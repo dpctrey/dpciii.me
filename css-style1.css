@@ -226,7 +226,7 @@ p.separator {
 }
 
 .separator1 .bg {
-	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
+	background: #FF3333;
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
 	margin: 0 auto;
@@ -238,17 +238,17 @@ p.separator {
 }
 
 .separator1 .bg2 {
-	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
+	background: #FF3333;
 	height: 90px;
 }
 
 .separator1 .bg3 {
-	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
+	background: #FF3333;
 	height: 90px;
 }
 
 .separator1 .bg4 {
-	background: url(http://www.backdropsource.co.nz/media/extendware/ewimageopt/media/inline/2f/9/solid-red-10ft-x-15ft-3m-x-45m-b5b.gif) repeat center;
+	background: #FF3333;
 	height: 90px;
 }
 
@@ -1459,6 +1459,7 @@ margin-bottom: 0 !important;
 text-align: center !important;
 }
 
+
 nav select {
 	display: none;
 }
@@ -1473,7 +1474,7 @@ nav select {
 	    color: #000000;
 	    display: inline-block;
 	    margin-top: 8px;
-	    position: relative;
+	    position: fixed;
 	}
 }
 
