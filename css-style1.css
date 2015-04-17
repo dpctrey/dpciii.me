@@ -226,7 +226,7 @@ p.separator {
 }
 
 .separator1 .bg {
-	background: #FF3333;
+	background-image: url(http://deeperchristian.com/wp-content/uploads/CreateRipples.jpg);
 	background-size: cover !important;
 	-webkit-background-size: cover !important;
 	margin: 0 auto;
@@ -238,17 +238,17 @@ p.separator {
 }
 
 .separator1 .bg2 {
-	background: #FF3333;
+	background-image: url(http://deeperchristian.com/wp-content/uploads/CreateRipples.jpg);
 	height: 90px;
 }
 
 .separator1 .bg3 {
-	background: #FF3333;
+	background-image: url(http://deeperchristian.com/wp-content/uploads/CreateRipples.jpg);
 	height: 90px;
 }
 
 .separator1 .bg4 {
-	background: #FF3333;
+	background-image: url(http://deeperchristian.com/wp-content/uploads/CreateRipples.jpg);
 	height: 90px;
 }
 
