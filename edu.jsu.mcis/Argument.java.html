@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Argument.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">narwhal-master</a> &gt; <a href="index.source.html" class="el_package">edu.jsu.mcis</a> &gt; <span class="el_source">Argument.java</span></div><h1>Argument.java</h1><pre class="source lang-java linenums">package edu.jsu.mcis;
+
+
+import java.util.*;
+import edu.jsu.mcis.ArgumentParser.Datatype;
+
+/**
+ *
+ * @author Narwhalians
+ */
+public class Argument &lt;T&gt;{
+    protected String name;
+    protected Datatype dataType;
+    protected List&lt;String&gt; restrictions;
+    protected String defaultValue;
+    
+<span class="fc" id="L17">    public Argument(){</span>
+<span class="fc" id="L18">        name = &quot;&quot;;</span>
+<span class="fc" id="L19">        defaultValue = &quot;&quot;;</span>
+<span class="fc" id="L20">        restrictions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L21">    }</span>
+    
+    /**  Returns a list of all restrictions the Argument object contains
+     *
+     * @return  A list of Strings containing the restrictions
+     */
+    public List&lt;String&gt; getRestrictions() {
+<span class="fc" id="L28">        return restrictions;</span>
+    }
+    
+    /** Sets the name of the Argument object
+     *
+     * @param name the name of the Argument
+     */
+    public void setName(String name) {
+<span class="fc" id="L36">        this.name = name;</span>
+<span class="fc" id="L37">    }</span>
+    
+    /** Gets the name of the Argument object
+     *
+     * @return the name of the Argument
+     */
+    public String getName() {
+<span class="fc" id="L44">        return name;</span>
+    }
+    
+    /** Gets the data type of the Argument object
+     *
+     * @return the data type
+     */
+    public Datatype getDataType() {
+<span class="fc" id="L52">        return dataType;</span>
+    }
+
+    /** sets the data type of the Argument object
+     *
+     * @param d the data type of the Argument
+     */
+    public void setDataType(Datatype d) {
+<span class="fc" id="L60">        dataType = d;</span>
+<span class="fc" id="L61">    }</span>
+    
+    /** gets the default value of the Argument object
+     *
+     * @return the default value
+     */
+    public String getDefaultValue() {
+<span class="fc" id="L68">        return defaultValue;</span>
+    }
+    
+    /**  sets the default value of the Argument object
+     *
+     * @param s the default value of the Argument
+     */
+    public void setDefaultValue(String s) {
+<span class="fc" id="L76">        defaultValue = s;</span>
+<span class="fc" id="L77">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

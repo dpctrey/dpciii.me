@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ArgumentParser.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">narwhal-master</a> &gt; <a href="index.source.html" class="el_package">edu.jsu.mcis</a> &gt; <span class="el_source">ArgumentParser.java</span></div><h1>ArgumentParser.java</h1><pre class="source lang-java linenums">package edu.jsu.mcis;
+import java.util.*;
+import java.util.Map.Entry;
+
+/** This class processes and holds user input data collected from the command line.
+ *  &lt;p&gt;
+ *  Argument Parser has three types of user input: Positional Arguments, Named Arguments, and Flags.
+ *  These allows a wide range a freedom when gathers user input data. Positional Arguments are always required, 
+ *  and the order they are created will be the order they are received.
+ *  &lt;/p&gt;
+ * &lt;p&gt;
+ *  &lt;pre&gt;
+ * {@code
+ *  ArgumentParser ap = new ArgumentParser();
+ * ap.addArgument(name, Datatype.STRING, description);
+ * }
+ *  &lt;/pre&gt;
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ *  Named Arguments are specified with a double dash(--) followed by their name when entered by the user. 
+ *  These Arguments can also be called upon using a single dash (-) followed by the nickname given.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * &lt;pre&gt;
+ * {@code
+ *  ArgumentParser ap = new ArgumentParser();
+ *  ap.addNamedArgument(name, defaultValue, Datatype.STRING, required);
+ * }
+ * &lt;/pre&gt;
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ *  Flags are simular to Named Arguments, but they do not contain as much information.
+ *  Flags are boolean values that default to false, but when a user uses the flag it turns true.
+ *  A user specifies a flag with a double dash(--) followed by the name or with a single dash(-)
+ *  followed by the nickname.
+ *  &lt;/p&gt;
+ * &lt;p&gt;
+ * &lt;pre&gt;
+ * {@code
+ *  ArgumentParser ap = new ArgumentParser();
+ *  ap.addFlag(name, nickname);
+ * }
+ * &lt;/pre&gt;
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ *  After added all Arguments the parse() method should be called, and should be given an array of strings
+ *  that is the user input. Parse will store all user values so they can be retrieved later.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * &lt;pre&gt;
+ * {@code
+ *  ArgumentParser ap = new ArgumentParser();
+ *  ap.addArgument(name, Datatype.STRING, description);
+ *  ap.addNamedArgument(name, defaultValue, Datatype.STRING, required);
+ *  ap.addFlag(name, nickname);
+ *  ap.parse(stringArray);
+ * }
+ * &lt;/pre&gt;
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ *  To retrieve the user input data the method getValue() should be called. This method takes in the name
+ *  of an Argument and returns an appropriate generic type value.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ *  Here is an example to show the entire process working as intended.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * &lt;pre&gt;
+ * {@code
+ *  ArgumentParser ap = new ArgumentParser();
+ *  ap.addArgument(&quot;Animal&quot;, Datatype.STRING, &quot;This is your favorite animal&quot;);
+ *  ap.addNamedArgument(&quot;drink&quot;, &quot;soda&quot;, Datatype.STRING, false);
+ *  ap.addFlag(&quot;Pizza&quot;, &quot;p&quot;);
+ *  String[] stringArray = {&quot;Narwhal&quot;,&quot;--drink&quot;, &quot;tea&quot;, &quot;-p&quot;};
+ *  ap.parse(stringArray);
+ *  String favoriteDrink = getValue(&quot;drink&quot;);
+ * }
+ * &lt;/pre&gt;
+ * &lt;/p&gt;
+ * 
+ * @author Narwhalians
+ */
+public class ArgumentParser { 
+    
+<span class="pc" id="L85">    public enum Datatype {STRING, FLOAT, INT, BOOLEAN};</span>
+    
+    protected Map&lt;String, PositionalArgument&gt; positionalArgs;
+    protected Map&lt;String, NamedArgument&gt; namedArgs;
+    private Map&lt;String, String&gt; nicknames;
+    private String programDescription;
+    private String programName;
+    private int currentGroup;
+    int numGroups;
+    private List&lt;NamedArgument&gt; namedArgsEntered;
+    
+<span class="fc" id="L96">    public ArgumentParser() {</span>
+<span class="fc" id="L97">        this.programName = &quot;&quot;;</span>
+<span class="fc" id="L98">        this.programDescription = &quot;&quot;;</span>
+<span class="fc" id="L99">        this.nicknames = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L100">        this.namedArgs = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L101">        this.positionalArgs = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L102">        currentGroup = 0;</span>
+<span class="fc" id="L103">        numGroups = 0;</span>
+<span class="fc" id="L104">        namedArgsEntered = new ArrayList&lt;&gt;();</span>
+        
+<span class="fc" id="L106">    }</span>
+    
+    /** Parse the user input to be added to the Argument Parser object
+     *
+     * @param args Array of strings given as program input
+     * @throws InvalidNamedArgumentException when invalid named argument is given
+     * @throws RestrictedValueException when input value is not in Argument restrictions
+     * @throws InvalidDataTypeException  when input value is not the proper data type
+     * @throws PositionalArgumentException when too many Positional values given
+     * @throws RequiredNamedArgumentNotGivenException when Named Argument which is required is not given
+     * @throws MutualExclusionException when a Named Argument from two different mutually exclusive groups is used
+     */
+    public void parse(String[] args) {
+<span class="fc" id="L119">        Queue&lt;String&gt; userInputQueue = arrayToQueue(args);</span>
+<span class="fc" id="L120">        Queue&lt;PositionalArgument&gt; positionalArgQueue = positionalArgsToQueue();</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        while(!userInputQueue.isEmpty()) {</span>
+<span class="fc" id="L122">            String value = userInputQueue.poll();</span>
+<span class="fc" id="L123">            String nextValue = userInputQueue.peek();</span>
+<span class="pc bpc" id="L124" title="2 of 4 branches missed.">            if (value.equals(&quot;-h&quot;) || value.equals(&quot;--Help&quot;)) {</span>
+<span class="nc" id="L125">                printHelpInfo();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            }else if (value.startsWith(&quot;--&quot;)) {</span>
+<span class="fc" id="L127">                value = value.substring(2);</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                if (namedArgs.containsKey(value)) {</span>
+<span class="fc" id="L129">                    NamedArgument namedArg = namedArgs.get(value);</span>
+<span class="fc" id="L130">                    parseNamedArguments(namedArg, userInputQueue, value);</span>
+<span class="fc" id="L131">                } else {</span>
+<span class="fc" id="L132">                    throw new InvalidNamedArgumentException(&quot;\n &quot; + value + &quot; '--' value not defined.&quot;);</span>
+                }
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            } else if (value.startsWith(&quot;-&quot;)) {</span>
+<span class="fc" id="L135">                value = value.substring(1);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                if (nicknames.containsKey(value)) {</span>
+<span class="fc" id="L137">                    String name = nicknames.get(value);</span>
+<span class="fc" id="L138">                    NamedArgument namedArg = namedArgs.get(name);</span>
+<span class="fc" id="L139">                    parseNamedArguments(namedArg, userInputQueue, value);</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">                } else if (isItAFlag(value)) {</span>
+<span class="nc" id="L141">                    flipFlag(value);</span>
+                } else {
+<span class="fc" id="L143">                    throw new InvalidNamedArgumentException(&quot;\n &quot; + value + &quot; '-' value not defined.&quot;);</span>
+                }
+            } else {
+<span class="fc bfc" id="L146" title="All 2 branches covered.">                if (!positionalArgQueue.isEmpty()) {</span>
+<span class="fc" id="L147">                    PositionalArgument posArg = positionalArgQueue.poll();</span>
+<span class="fc" id="L148">                    int numberPosValues = posArg.getNumberOfValues();</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                    for (int i=1; i&lt;=numberPosValues; i++) {</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">                        if (datatypeIsValid(posArg, value)) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">                            if (valueInRestrictions(posArg, value)) {</span>
+<span class="fc" id="L152">                                posArg.setValue(value);</span>
+                            } else {
+<span class="fc" id="L154">                                throw new RestrictedValueException(value + &quot; is not in set of restrictions&quot;);</span>
+                            }
+<span class="fc bfc" id="L156" title="All 2 branches covered.">                        } else if (value != null) {</span>
+<span class="fc" id="L157">                            throw new InvalidDataTypeException(&quot;\n &quot; + value + &quot;. Value is invalid data type.&quot;);</span>
+                        }
+<span class="fc bfc" id="L159" title="All 2 branches covered.">                        if (i &lt; numberPosValues) {</span>
+<span class="fc" id="L160">                            value = userInputQueue.poll();</span>
+                        }
+                    }
+<span class="fc" id="L163">                } else {</span>
+<span class="fc" id="L164">                    throw new PositionalArgumentException(&quot;\n Too many positional arguments.&quot;);</span>
+                }
+            }
+<span class="fc" id="L167">        }</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (!allPositionalArgsUsed(positionalArgQueue)) {</span>
+<span class="fc" id="L169">            throw new PositionalArgumentException(&quot;\n Not enough positional arguments.&quot;);</span>
+        }
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (!checkIfAllRequiredNamedArgumentsGiven()) {</span>
+<span class="fc" id="L172">            throw new RequiredNamedArgumentNotGivenException(&quot;\n required Named Argument not given&quot;);</span>
+        }
+<span class="fc" id="L174">    }</span>
+    
+    private boolean allPositionalArgsUsed(Queue&lt;PositionalArgument&gt; positionalArgQueue) {
+<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (!positionalArgQueue.isEmpty()) {</span>
+<span class="fc" id="L178">            return false;</span>
+        } else {
+            PositionalArgument posArg;
+<span class="fc bfc" id="L181" title="All 2 branches covered.">            for (Map.Entry&lt;String, PositionalArgument&gt; p : positionalArgs.entrySet()){</span>
+<span class="fc" id="L182">                posArg = p.getValue();</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">                if (posArg.getValueListAsString().size() != posArg.getNumberOfValues()) {</span>
+<span class="fc" id="L184">                    return false;</span>
+                }
+<span class="fc" id="L186">            }</span>
+        }
+<span class="fc" id="L188">        return true;</span>
+    }
+    
+    private void parseNamedArguments(NamedArgument namedArg, Queue&lt;String&gt; userInputQueue, String value) {
+<span class="fc bfc" id="L192" title="All 4 branches covered.">        if (currentGroup == 0 || currentGroup == namedArg.getGroup()) {</span>
+<span class="fc" id="L193">            String nextValue = userInputQueue.peek();</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">            if (namedArg.getDataType() == Datatype.BOOLEAN) {</span>
+<span class="fc" id="L195">                namedArg.setValue(&quot;true&quot;);</span>
+<span class="fc" id="L196">                namedArgsEntered.add(namedArg);</span>
+            }
+<span class="fc bfc" id="L198" title="All 2 branches covered.">            else if (valueInRestrictions(namedArg, nextValue)) {</span>
+<span class="fc" id="L199">                namedArg.setValue(userInputQueue.poll());</span>
+<span class="fc" id="L200">                namedArgsEntered.add(namedArg);</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">                if (namedArg.getGroup() != 0) {</span>
+<span class="fc" id="L202">                    currentGroup = namedArg.getGroup();</span>
+                }
+            }
+            else {
+<span class="fc" id="L206">                throw new RestrictedValueException(value + &quot; is not in set of restrictions&quot;);</span>
+            }
+<span class="fc" id="L208">        } else {</span>
+<span class="fc" id="L209">            throw new MutualExclusionException(&quot;illegal use of mutually exlusive groups&quot;);</span>
+        }
+<span class="fc" id="L211">    }</span>
+    
+    private boolean valueInRestrictions(Argument arg, String value) {
+<span class="fc bfc" id="L214" title="All 2 branches covered.">        if (arg.restrictions.isEmpty()) {</span>
+<span class="fc" id="L215">            return true;</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        }else if (arg.restrictions.contains(value)) {</span>
+<span class="fc" id="L217">            return true;</span>
+        } else {
+<span class="fc" id="L219">            return false;</span>
+        }
+    }
+    
+    private Queue&lt;String&gt; arrayToQueue(String[] array) {
+<span class="fc" id="L224">        Queue&lt;String&gt; output = new LinkedList&lt;&gt;();</span>
+<span class="fc" id="L225">        output.addAll(Arrays.asList(array));</span>
+<span class="fc" id="L226">        return output;</span>
+    }
+    
+    private Queue&lt;PositionalArgument&gt; positionalArgsToQueue() {
+<span class="fc" id="L230">        Queue&lt;PositionalArgument&gt; output = new LinkedList&lt;&gt;();</span>
+<span class="fc bfc" id="L231" title="All 2 branches covered.">        for (Entry&lt;String, PositionalArgument&gt; entry : positionalArgs.entrySet()) {</span>
+<span class="fc" id="L232">            output.add(entry.getValue());</span>
+<span class="fc" id="L233">        }</span>
+<span class="fc" id="L234">        return output;</span>
+    }
+    
+    private boolean datatypeIsValid(PositionalArgument posArg, String value) {
+<span class="fc bfc" id="L238" title="All 2 branches covered.">        if (posArg.dataType == Datatype.STRING) {</span>
+<span class="fc" id="L239">            return true;</span>
+<span class="fc bfc" id="L240" title="All 2 branches covered.">        } else if (posArg.dataType == Datatype.INT) {</span>
+            try {
+<span class="fc" id="L242">                Integer.parseInt(value);</span>
+            } 
+<span class="fc" id="L244">            catch (java.lang.NumberFormatException e) {</span>
+<span class="fc" id="L245">                return false;</span>
+<span class="fc" id="L246">            }</span>
+<span class="fc bfc" id="L247" title="All 2 branches covered.">        } else if (posArg.dataType == Datatype.FLOAT) {</span>
+            try {
+<span class="fc" id="L249">                Float.parseFloat(value);</span>
+            } 
+<span class="fc" id="L251">            catch (java.lang.NumberFormatException e) {</span>
+<span class="fc" id="L252">                return false;</span>
+<span class="fc" id="L253">            }</span>
+        } else {
+<span class="fc bfc" id="L255" title="All 8 branches covered.">            return value.equals(&quot;True&quot;) || value.equals(&quot;true&quot;) || value.equals(&quot;False&quot;) || value.equals(&quot;false&quot;);</span>
+        }
+<span class="fc" id="L257">        return true;</span>
+    }
+    
+    
+    
+    private boolean checkIfAllRequiredNamedArgumentsGiven() {
+<span class="fc bfc" id="L263" title="All 2 branches covered.">        for (String s : namedArgs.keySet()) {</span>
+<span class="fc bfc" id="L264" title="All 2 branches covered.">            if (isArgumentRequiredButNotGiven(s)) {</span>
+<span class="fc" id="L265">                return false;</span>
+            }
+<span class="fc" id="L267">        }</span>
+<span class="fc" id="L268">        return true;</span>
+    }
+    
+    private boolean isArgumentRequiredButNotGiven(String s) {
+<span class="fc bfc" id="L272" title="All 4 branches covered.">        return namedArgs.get(s).getRequired() &amp;&amp; !namedArgsEntered.contains(namedArgs.get(s));</span>
+    }
+    
+    private boolean isItAFlag(String singleCharInput) {
+<span class="fc" id="L276">        return namedArgs.containsKey(nicknames.get(singleCharInput));</span>
+    }
+    
+    private void flipFlag(String singleCharInput) {
+<span class="nc" id="L280">        NamedArgument flag = namedArgs.get(nicknames.get(singleCharInput));</span>
+<span class="nc" id="L281">        flag.setValue(&quot;true&quot;);</span>
+<span class="nc" id="L282">        namedArgsEntered.add(flag);</span>
+<span class="nc" id="L283">    }</span>
+    
+    /** Get the value of a Argument in the proper data type
+     *
+     * @param s Name of the Argument
+     * @return  Value of the Argument given
+     */
+    public &lt;T&gt; T getValue(String s) {
+<span class="fc bfc" id="L291" title="All 2 branches covered.">        if (isItAPositional(s)) {</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">            if (positionalArgs.get(s).getValueListAsString().size() == 1) {</span>
+<span class="fc bfc" id="L293" title="All 2 branches covered.">                if (positionalArgs.get(s).getDataType() == Datatype.BOOLEAN) {</span>
+<span class="fc" id="L294">                    return (T) Boolean.valueOf(positionalArgs.get(s).getValue(0));</span>
+                } 
+<span class="fc bfc" id="L296" title="All 2 branches covered.">                else if (positionalArgs.get(s).getDataType() == Datatype.INT) {</span>
+<span class="fc" id="L297">                    return (T) new Integer(positionalArgs.get(s).getValue(0));</span>
+                } 
+<span class="fc bfc" id="L299" title="All 2 branches covered.">                else if (positionalArgs.get(s).getDataType() == Datatype.FLOAT) {</span>
+<span class="fc" id="L300">                    return (T) new Float(positionalArgs.get(s).getValue(0));</span>
+                } 
+                else{
+<span class="fc" id="L303">                    return (T) positionalArgs.get(s).getValue(0);</span>
+                }
+            }
+            else {
+                List&lt;T&gt; output;
+<span class="fc" id="L308">                output = positionalArgs.get(s).getValueList();</span>
+<span class="fc" id="L309">                return (T) output;</span>
+            }
+        } 
+<span class="fc bfc" id="L312" title="All 2 branches covered.">        else if (isItANamed(s)) {</span>
+<span class="fc bfc" id="L313" title="All 2 branches covered.">            if (namedArgs.get(s).getDataType() == Datatype.BOOLEAN) {</span>
+<span class="fc" id="L314">                    return (T) Boolean.valueOf(namedArgs.get(s).getValue());</span>
+                } 
+<span class="fc bfc" id="L316" title="All 2 branches covered.">                else if (namedArgs.get(s).getDataType() == Datatype.INT) {</span>
+<span class="fc" id="L317">                    return (T) new Integer(namedArgs.get(s).getValue());</span>
+                } 
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">                else if (namedArgs.get(s).getDataType() == Datatype.FLOAT) {</span>
+<span class="nc" id="L320">                    return (T) new Float(namedArgs.get(s).getValue());</span>
+                } 
+                else{
+<span class="fc" id="L323">                    return (T) namedArgs.get(s).getValue();</span>
+                }
+        }
+<span class="pc bpc" id="L326" title="1 of 2 branches missed.">        else if (isItAFlag(s)) {</span>
+<span class="nc" id="L327">            return (T) Boolean.valueOf(namedArgs.get(s).getValue());</span>
+        }
+<span class="fc" id="L329">        throw new NoArgCalledException(&quot;\n &quot; + s + &quot; is not a valid argument.&quot;);</span>
+    }
+    
+    private boolean isItAPositional(String s) {
+<span class="fc" id="L333">        return positionalArgs.containsKey(s);</span>
+    }
+    
+    private boolean isItANamed(String s) {
+<span class="fc" id="L337">        return namedArgs.containsKey(s);</span>
+    }
+	    
+    /** Add a Named Argument
+     *
+     * @param name name of the Named Argument
+     * @param required whether the Named Argument is required
+     */
+    public void addNamedArgument(String name, boolean required) {
+<span class="fc" id="L346">        NamedArgument oa = new NamedArgument();</span>
+<span class="fc" id="L347">        namedArgs.put(name, oa);</span>
+<span class="fc" id="L348">        oa.setName(name);</span>
+<span class="fc" id="L349">        setRequired(name, required);</span>
+<span class="fc" id="L350">    }</span>
+    
+    /** Add a Named Argument
+     *
+     * @param name name of the Named Argument
+     * @param defaultValue default value of the Named Argument
+     * @param required whether the Named Argument is required
+     */
+    public void addNamedArgument(String name, String defaultValue, boolean required) {
+<span class="fc" id="L359">        addNamedArgument(name, required);</span>
+<span class="fc" id="L360">        NamedArgument oa = getNamedArgument(name);</span>
+<span class="fc" id="L361">        oa.setValue(defaultValue);</span>
+<span class="fc" id="L362">        oa.setDefaultValue(defaultValue);</span>
+<span class="fc" id="L363">    }</span>
+    
+    /** Add a Named Argument
+     *
+     * @param name name of the Named Argument
+     * @param defaultValue default value of the Named Argument
+     * @param datatype the data type of the Named Argument
+     * @param required whether the Named Argument is required
+     */
+    public void addNamedArgument(String name, String defaultValue, Datatype datatype, boolean required) {
+<span class="fc" id="L373">        addNamedArgument(name, defaultValue, required);</span>
+<span class="fc" id="L374">        NamedArgument oa = getNamedArgument(name);</span>
+<span class="fc" id="L375">        oa.setDataType(datatype);</span>
+<span class="fc" id="L376">    }</span>
+    
+    /** Add a Named Argument
+     *
+     * @param name name of the Named Argument
+     * @param defaultValue default value of the Named Argument
+     * @param datatype the data type of the Named Argument
+     * @param nickname the nickname of the Named Argument
+     * @param required whether the Named Argument is required
+     */
+    public void addNamedArgument(String name, String defaultValue, Datatype datatype, String nickname, boolean required) {
+<span class="fc" id="L387">        addNamedArgument(name, defaultValue, datatype, required);</span>
+<span class="fc" id="L388">        nicknames.put(nickname, name);</span>
+<span class="fc" id="L389">        setNickname(name, nickname);</span>
+<span class="fc" id="L390">    }</span>
+    
+    private void setRequired(String name, boolean required) {
+<span class="fc" id="L393">        NamedArgument oa = getNamedArgument(name);</span>
+<span class="fc" id="L394">        oa.setRequired(required);</span>
+<span class="fc" id="L395">    }</span>
+    
+    private NamedArgument getNamedArgument(String key) {
+<span class="fc" id="L398">        return namedArgs.get(key);</span>
+    }
+    
+    private void setNickname(String s, String n) {
+<span class="fc" id="L402">        namedArgs.get(s).setNickname(n);</span>
+<span class="fc" id="L403">    }</span>
+    
+    private void printHelpInfo() {
+<span class="nc" id="L406">        getHelpInfo();</span>
+<span class="nc" id="L407">        System.exit(0);</span>
+<span class="nc" id="L408">    }</span>
+    
+    /** prints the Help information of Argument Parser
+     *
+     */
+    public void getHelpInfo(){
+<span class="fc" id="L414">        int printLoopCount = 0;</span>
+<span class="fc" id="L415">        System.out.print(&quot;\nUsage Information: java &quot; + programName + &quot; &quot;);</span>
+<span class="fc bfc" id="L416" title="All 2 branches covered.">        for (String k : positionalArgs.keySet()) {</span>
+<span class="pc bpc" id="L417" title="1 of 2 branches missed.">            if (printLoopCount &lt; positionalArgs.size()) {</span>
+<span class="fc" id="L418">                System.out.print(k + &quot; &quot;);</span>
+            }
+<span class="fc" id="L420">            printLoopCount++;</span>
+<span class="fc" id="L421">        }</span>
+<span class="fc" id="L422">        System.out.println();</span>
+<span class="fc" id="L423">        System.out.println(programDescription);</span>
+<span class="fc" id="L424">        System.out.println();</span>
+<span class="fc" id="L425">        System.out.println(&quot;Positional Arguments: &quot;);</span>
+<span class="fc" id="L426">        printLoopCount = 0;</span>
+<span class="fc bfc" id="L427" title="All 2 branches covered.">        for (String s : positionalArgs.keySet()) {</span>
+<span class="pc bpc" id="L428" title="1 of 2 branches missed.">            if (printLoopCount &lt; positionalArgs.size()) {</span>
+<span class="fc" id="L429">                System.out.print (&quot;\n&quot; + s + &quot;: &quot;);</span>
+<span class="fc bfc" id="L430" title="All 2 branches covered.">                if (!positionalArgs.get(s).getDescription().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L431">                    System.out.print(positionalArgs.get(s).getDescription());</span>
+                }
+                else {
+<span class="fc" id="L434">                    System.out.println(&quot;No Description Given&quot;);</span>
+                }
+<span class="fc" id="L436">                System.out.print(&quot;    Datatype: &quot; + positionalArgs.get(s).getDataType());</span>
+<span class="pc bpc" id="L437" title="3 of 6 branches missed.">                if (positionalArgs.get(s).getRestrictions().size() == 0 || positionalArgs.get(s).getRestrictions().size() == 1 &amp;&amp; positionalArgs.get(s).getRestrictions().get(0).equals(&quot;&quot;)) {</span>
+                    //
+                }
+                else {
+<span class="fc" id="L441">                    System.out.print(&quot;    Restrictions:&quot;);</span>
+<span class="fc" id="L442">                    Iterator itr = positionalArgs.get(s).getRestrictions().iterator();</span>
+<span class="fc bfc" id="L443" title="All 2 branches covered.">                    while (itr.hasNext()) {</span>
+<span class="fc" id="L444">                        System.out.print(&quot; &quot; + itr.next());</span>
+                    }
+                }
+            }
+<span class="fc" id="L448">            printLoopCount++;</span>
+<span class="fc" id="L449">        }</span>
+<span class="fc" id="L450">        System.out.println();</span>
+<span class="fc" id="L451">        System.out.println();</span>
+<span class="fc" id="L452">        System.out.println(&quot;Named Arguments:&quot;);</span>
+<span class="fc bfc" id="L453" title="All 2 branches covered.">        for (String s : namedArgs.keySet()) {</span>
+<span class="fc" id="L454">            System.out.print(&quot;\n&quot; + s + &quot;: &quot; + &quot;Required: &quot; + namedArgs.get(s).getRequired());</span>
+<span class="fc bfc" id="L455" title="All 2 branches covered.">            if (!namedArgs.get(s).getNickname().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L456">                System.out.print(&quot;    Nickname: &quot; + namedArgs.get(s).getNickname());</span>
+            }
+<span class="fc" id="L458">        }</span>
+<span class="fc" id="L459">        System.out.println();</span>
+<span class="pc bpc" id="L460" title="1 of 2 branches missed.">        if (numGroups &gt; 0) {</span>
+<span class="fc" id="L461">            System.out.println();</span>
+<span class="fc" id="L462">            System.out.println(&quot;Mutually Exclusive Groups:&quot;);</span>
+<span class="fc" id="L463">            System.out.println();</span>
+<span class="fc bfc" id="L464" title="All 2 branches covered.">            for (int i = 1; i &lt; numGroups + 1; i++) {</span>
+<span class="fc" id="L465">                System.out.print(&quot;Group &quot; + i + &quot;:&quot;);</span>
+<span class="fc bfc" id="L466" title="All 2 branches covered.">                for (String s : namedArgs.keySet()) {</span>
+<span class="fc bfc" id="L467" title="All 2 branches covered.">                    if (namedArgs.get(s).getGroup() == i) {</span>
+<span class="fc" id="L468">                        System.out.print(&quot; &quot; + s);</span>
+                    }
+<span class="fc" id="L470">                }</span>
+<span class="fc" id="L471">                System.out.println();</span>
+            }
+        }
+<span class="fc" id="L474">    }</span>
+    
+    /** Adds a Positional Argument to Argument Parser object
+     *
+     * @param name name of the Positional Argument
+     * @param dataType data type of the Positional Argument
+     */
+    public void addArguments(String name, Datatype dataType) {
+<span class="fc" id="L482">        PositionalArgument ao = new PositionalArgument();</span>
+<span class="fc" id="L483">        positionalArgs.put(name, ao);</span>
+<span class="fc" id="L484">        ao.setName(name);</span>
+<span class="fc" id="L485">        ao.setDataType(dataType);</span>
+<span class="fc" id="L486">    }</span>
+    
+    /** Adds a Positional Argument to Argument Parser object
+     *
+     * @param name name of the Positional Argument
+     * @param dataType data type of the Positional Argument
+     * @param description description of the Positional Argument
+     */
+    public void addArguments(String name, Datatype dataType, String description) {
+<span class="fc" id="L495">        addArguments(name, dataType);</span>
+<span class="fc" id="L496">        positionalArgs.get(name).setDescription(description);</span>
+<span class="fc" id="L497">    }</span>
+    
+    /** Adds a Positional Argument to Argument Parser object
+     *
+     * @param name name of the Positional Argument
+     * @param dataType data type of the Positional Argument
+     * @param description description of the Positional Argument
+     * @param numValues arity of the Positional Argument
+     */
+    public void addArguments(String name, Datatype dataType, String description, int numValues) {
+<span class="fc" id="L507">        addArguments(name, dataType, description);</span>
+<span class="fc" id="L508">        positionalArgs.get(name).setNumberOfValues(numValues);</span>
+<span class="fc" id="L509">    }</span>
+    
+    /** Sets the Program Description
+     *
+     * @param s Program's description
+     */
+    public void setProgramDescription(String s) {
+<span class="fc" id="L516">        programDescription = s;</span>
+<span class="fc" id="L517">    }</span>
+    
+    /** Sets the name of the program
+     *
+     * @param s Program's name
+     */
+    public void setProgramName(String s) {
+<span class="fc" id="L524">        programName = s;</span>
+<span class="fc" id="L525">    }</span>
+    
+    /** Adds a flag
+     *
+     * @param name name of the flag
+     */
+    public void addFlag(String name) {
+<span class="fc" id="L532">        addNamedArgument(name, &quot;false&quot;, Datatype.BOOLEAN, false);</span>
+<span class="fc" id="L533">    }</span>
+    
+    /** Adds a flag
+     *
+     * @param name name of the flag
+     * @param nickname nickname of the flag
+     */
+    public void addFlag(String name, String nickname) {
+<span class="nc" id="L541">        addNamedArgument(name, &quot;false&quot;, Datatype.BOOLEAN, nickname, false);</span>
+<span class="nc" id="L542">    }</span>
+    
+    protected Datatype StringToDatatype(String data) {
+<span class="fc bfc" id="L545" title="All 2 branches covered.">        if (data.equals(&quot;float&quot;)) {</span>
+<span class="fc" id="L546">            return Datatype.FLOAT;</span>
+        } 
+<span class="fc bfc" id="L548" title="All 2 branches covered.">        else if (data.equals(&quot;int&quot;)) {</span>
+<span class="fc" id="L549">            return Datatype.INT;</span>
+        } 
+<span class="fc bfc" id="L551" title="All 2 branches covered.">        else if (data.equals(&quot;boolean&quot;)) {</span>
+<span class="fc" id="L552">            return Datatype.BOOLEAN;</span>
+        }
+        else {
+<span class="fc" id="L555">            return Datatype.STRING;</span>
+        }
+    }
+    
+    protected String datatypeToString(Datatype data) {
+<span class="fc bfc" id="L560" title="All 2 branches covered.">        if (data == Datatype.FLOAT) {</span>
+<span class="fc" id="L561">            return &quot;float&quot;;</span>
+        }
+<span class="fc bfc" id="L563" title="All 2 branches covered.">        else if (data == Datatype.INT) {</span>
+<span class="fc" id="L564">            return &quot;int&quot;;</span>
+        }
+<span class="pc bpc" id="L566" title="1 of 2 branches missed.">        else if (data == Datatype.BOOLEAN) {</span>
+<span class="nc" id="L567">            return &quot;boolean&quot;;</span>
+        }
+        else {
+<span class="fc" id="L570">            return &quot;String&quot;;</span>
+        }
+    }
+    
+    /** Adds input value restrictions to an Argument object
+     *
+     * @param name name of the Argument to set restrictions on
+     * @param o List of restrictions to be assigned
+     */
+    public &lt;T&gt; void setRestrictions(String name, List&lt;T&gt; o){
+        String key;
+<span class="fc bfc" id="L581" title="All 2 branches covered.">        for (Map.Entry&lt;String, PositionalArgument&gt; p : positionalArgs.entrySet()){</span>
+<span class="fc" id="L582">            key = p.getKey();</span>
+<span class="fc bfc" id="L583" title="All 2 branches covered.">            if (key.equals(name)){</span>
+<span class="fc bfc" id="L584" title="All 2 branches covered.">                for (T ob : o) {</span>
+<span class="fc" id="L585">                    String str = ob.toString();</span>
+<span class="fc" id="L586">                    positionalArgs.get(name).getRestrictions().add(str);</span>
+<span class="fc" id="L587">                }</span>
+            }
+<span class="fc" id="L589">        }</span>
+<span class="fc bfc" id="L590" title="All 2 branches covered.">        for (Map.Entry&lt;String, NamedArgument&gt; n : namedArgs.entrySet()){</span>
+<span class="fc" id="L591">            key = n.getKey();</span>
+<span class="fc bfc" id="L592" title="All 2 branches covered.">            if (key.equals(name)){</span>
+<span class="fc bfc" id="L593" title="All 2 branches covered.">                for (T ob : o){</span>
+<span class="fc" id="L594">                    String str = ob.toString();</span>
+<span class="fc" id="L595">                    namedArgs.get(name).getRestrictions().add(str);</span>
+<span class="fc" id="L596">                }</span>
+            }
+<span class="fc" id="L598">        }</span>
+<span class="fc" id="L599">    }</span>
+    
+    /** Used to assign mutually exclusive groups
+     *
+     * @param list list of list of names of Named Arguments
+     */
+    public void addNamedGroups(List&lt;List&lt;String&gt;&gt; list) {
+<span class="fc" id="L606">        int count = 1;</span>
+<span class="fc bfc" id="L607" title="All 2 branches covered.">        for (List&lt;String&gt; namedLists : list) {</span>
+<span class="fc bfc" id="L608" title="All 2 branches covered.">            for (String named : namedLists) {</span>
+<span class="fc" id="L609">                namedArgs.get(named).setGroup(count);</span>
+<span class="fc" id="L610">            }</span>
+<span class="fc" id="L611">            numGroups = count;</span>
+<span class="fc" id="L612">            count++;</span>
+<span class="fc" id="L613">        }</span>
+<span class="fc" id="L614">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
