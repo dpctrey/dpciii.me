@@ -1,0 +1,227 @@
+body {
+	background-image: url("http://tdwhs.nwasco.k12.or.us/staff/rose-wellar/ibodyworks/pink-background-clouds.jpg");
+	height: 1300px;
+}
+
+/* This is the container CSS */
+#container {
+
+    margin-left: auto;
+    margin-right: auto;
+    height: 1500px;
+}
+
+/* This is the main pages' CSS */
+#first_page {
+    background-image: url('http://www.jacksonville-al.org/uploadedFiles/photos/photoGallery_2_l.jpg');
+	background-size: 100% 100%;
+    width: 98%;
+	margin-top: 2%;
+    height: 30%;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: inline-block;
+	-webkit-box-shadow: 3px 0px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 0px 3px 3px rgba(0, 0, 0, 0.3);
+	text-align:center;
+}
+
+#second_page {
+    background-color: #FFF5EE;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 98%;
+
+    display: inline-block;
+	-webkit-box-shadow: 3px 0px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 0px 3px 3px rgba(0, 0, 0, 0.3);
+	text-align:center;
+}
+
+#third_page {
+    background-color: #FFF5EE;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 98%;
+
+    display: inline-block;
+	-webkit-box-shadow: 3px 0px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 0px 3px 3px rgba(0, 0, 0, 0.3);
+	text-align:center;
+}
+
+#fourth_page {
+    background-color: #FFF5EE;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 98%;
+
+    display: inline-block;
+	-webkit-box-shadow: 3px 0px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 0px 3px 3px rgba(0, 0, 0, 0.3);
+	text-align:center;
+}
+
+/* This is the background's CSS */
+
+#bg_two {
+    background-color: #FF3333;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: inline-block;
+    height:1%;
+    width: 80%;
+	-webkit-box-shadow: 3px 4px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 4px 4px 3px rgba(0, 0, 0, 0.3);
+	opacity: .95;
+	font-size: 50%;
+}
+
+#bg_three {
+    background-color: #FF3333;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: inline-block;
+    height: 4%;
+    width: 98%;
+	-webkit-box-shadow: 3px 4px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 4px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+#bg_four {
+    background-color: #FF3333;
+    margin-left: 1%;
+    margin-right: 1%;
+    display: inline-block;
+    height: 2%;
+    width: 98%;
+	-webkit-box-shadow: 3px 4px 4px 3px rgba(0, 0, 0, 0.3);
+	box-shadow: 3px 4px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* This is the styling for the nav */
+#nav {
+	text-align: center;
+	font-size: 110%;
+	background-color: #FF3333;
+    margin-left: .5%;
+    margin-right: .5%;
+    height: 5%;
+    width: 98%;
+	position: fixed;
+	-webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.3);
+	color: #000000;
+	text-decoration: none;
+	z-index: 11111;
+	opacity: .95;
+	}
+#nav ul li {
+	display: inline;
+	padding: 6px 32px 8px 32px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+/* This is the links CSS */
+a:link {
+	color: black;
+	text-decoration: none;
+}
+a:visited {
+	color:black;
+	text-decoration: none;
+}
+a:hover {
+	color: grey;
+	
+}
+a:active {
+	color: black;
+	text-decoration: none;
+}
+
+/* This is the titles CSS */
+#main_title {
+	font-size: 350%;
+	text-shadow: 2px 2px grey;
+	margin-top: 50px;
+}
+
+#main_subtitle {
+	font-size: 250%;
+	text-shadow: 2px 2px grey;
+}
+
+#about_title {
+	font-size: 250%;
+	text-shadow: 2px 2px grey;
+}
+
+#pricing_title {
+	font-size: 250%;
+	text-shadow: 2px 2px grey;
+}
+
+#contact_title {
+	font-size: 250%;
+	text-shadow: 2px 2px grey;
+}
+
+#main_banner {
+	text-align: center;
+	width: 50%;
+	font-size: 180%; 
+	background-color: grey;
+	opacity: 0.6;
+	z-index: -100000;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#about_par {
+	text-align: left;
+	width: 50%;
+	padding-left: 200px;
+	font-size: 150%;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	float: left;
+}
+
+#map_view {
+	float: right;
+	padding: 30px 200px 30px 30px;
+	width: 20%;
+	-webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+#two_bed_pic {
+	width: 15%;
+	padding: 30px 30px 30px 150px;
+	float: left;
+}
+
+#one_bed_pic {
+	width: 20%;
+	padding: 50px 60px 30px 100px;
+	float: left;
+}	
+
+#one_bed_list {
+
+	padding-top: 100px;
+	text-align: left;
+}
+
+#two_bed_list {
+	float: left;
+	padding-top: 100px;
+	text-align: left;
+	padding-right: 0px;
+}
+
+#price {
+	font-size: 200%;
+}
