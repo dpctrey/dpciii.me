@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>XML.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">narwhal-master</a> &gt; <a href="index.source.html" class="el_package">edu.jsu.mcis</a> &gt; <span class="el_source">XML.java</span></div><h1>XML.java</h1><pre class="source lang-java linenums">package edu.jsu.mcis;
+
+import edu.jsu.mcis.ArgumentParser.Datatype;
+import java.util.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.*;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
+
+/** The XML class adds XML functionality to the Argument Parser class
+ *
+ * @author Narwhalians
+ */
+<span class="nc" id="L20">public class XML {</span>
+    
+    /**  loads data from an XML file into an Argument Parser object
+     *
+     * @param fileName file name of XML to be used
+     * @return An Argument Parser object with data from XML file given
+     * @throws MissingUsableArgumentException when type is invalid
+     * @throws FileErrorException when file path is invalid
+     */
+    public static ArgumentParser loadXML(String fileName) {
+<span class="fc" id="L30">        ArgumentParser ap = new ArgumentParser();</span>
+        try {
+<span class="fc" id="L32">            File xmlFile = new File(fileName);</span>
+<span class="fc" id="L33">            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="fc" id="L34">            DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();</span>
+<span class="fc" id="L35">            Document xmlDoc = docBuilder.parse(xmlFile);</span>
+<span class="fc" id="L36">            xmlDoc.getDocumentElement().normalize();</span>
+<span class="fc" id="L37">            NodeList nodeList = xmlDoc.getElementsByTagName(&quot;argument&quot;);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            for (int i = 0; i &lt; nodeList.getLength(); i++) {</span>
+<span class="fc" id="L39">                Node node = nodeList.item(i);</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                if (node.getNodeType() == Node.ELEMENT_NODE) {</span>
+<span class="fc" id="L41">                    Element e = (Element) node;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">                    if (e.getAttribute(&quot;type&quot;).equals(&quot;positional&quot;)) {</span>
+<span class="fc" id="L43">                        String eName = e.getElementsByTagName(&quot;name&quot;).item(0).getTextContent();</span>
+<span class="fc" id="L44">                        String eDatatype  = e.getElementsByTagName(&quot;datatype&quot;).item(0).getTextContent();</span>
+                        try {
+<span class="fc" id="L46">                            eDatatype = e.getElementsByTagName(&quot;datatype&quot;).item(0).getTextContent();</span>
+<span class="pc" id="L47">                        } catch (NullPointerException ex) {}</span>
+<span class="fc" id="L48">                        String eDescription = &quot;&quot;;</span>
+                        try {
+<span class="fc" id="L50">                            eDescription = e.getElementsByTagName(&quot;description&quot;).item(0).getTextContent();</span>
+<span class="pc" id="L51">                        } catch (NullPointerException ex) {}</span>
+<span class="fc" id="L52">                        String eNumberOfValues = e.getElementsByTagName(&quot;arity&quot;).item(0).getTextContent();</span>
+<span class="fc" id="L53">                        ArrayList&lt;String&gt; restrictList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L54">                        NodeList restrict = e.getElementsByTagName(&quot;restrict&quot;);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">                        for (int k = 0; k &lt; restrict.getLength(); k++) {</span>
+<span class="fc" id="L56">                            restrictList.add(restrict.item(k).getTextContent());</span>
+                        }
+<span class="fc" id="L58">                        ap.addArguments(eName, ap.StringToDatatype(eDatatype), eDescription, new Integer(eNumberOfValues));</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">                        if (!isItEmpty(restrictList)) {</span>
+<span class="fc" id="L60">                            ap.setRestrictions(eName, restrictList);</span>
+                        }
+<span class="fc" id="L62">                    }</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                    else if (e.getAttribute(&quot;type&quot;).equals(&quot;named&quot;)) {</span>
+<span class="fc" id="L64">                        String eName = e.getElementsByTagName(&quot;name&quot;).item(0).getTextContent();</span>
+<span class="fc" id="L65">                        String eDefault = &quot;&quot;;</span>
+                        try {
+<span class="fc" id="L67">                            eDefault = e.getElementsByTagName(&quot;default&quot;).item(0).getTextContent();</span>
+<span class="pc" id="L68">                        } catch (NullPointerException ex) {}</span>
+<span class="fc" id="L69">                        String eDatatype = e.getElementsByTagName(&quot;datatype&quot;).item(0).getTextContent();</span>
+<span class="fc" id="L70">                        String eNickname = &quot;&quot;;</span>
+                        try {
+<span class="fc" id="L72">                            eNickname = e.getElementsByTagName(&quot;nickname&quot;).item(0).getTextContent();</span>
+<span class="pc" id="L73">                        } catch (NullPointerException ex) {}</span>
+<span class="fc" id="L74">                        String eRequired = e.getElementsByTagName(&quot;required&quot;).item(0).getTextContent();</span>
+<span class="fc" id="L75">                        ArrayList&lt;String&gt; restrictList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L76">                        NodeList restrict = e.getElementsByTagName(&quot;restrict&quot;);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                        for (int k = 0; k &lt; restrict.getLength(); k++) {</span>
+<span class="fc" id="L78">                            restrictList.add(restrict.item(k).getTextContent());</span>
+                        }
+<span class="fc" id="L80">                        ap.addNamedArgument(eName, eDefault, ap.StringToDatatype(eDatatype), eNickname, Boolean.parseBoolean(eRequired));</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">                        if (!isItEmpty(restrictList)) {</span>
+<span class="fc" id="L82">                            ap.setRestrictions(eName, restrictList);</span>
+                        }
+<span class="fc" id="L84">                    }</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">                    else if (e.getAttribute(&quot;type&quot;).equals(&quot;flag&quot;)) {</span>
+<span class="fc" id="L86">                        String eFlagname = e.getElementsByTagName(&quot;flagname&quot;).item(0).getTextContent();</span>
+<span class="fc" id="L87">                        ap.addFlag(eFlagname);</span>
+<span class="fc" id="L88">                    }</span>
+                    else {
+<span class="fc" id="L90">                        throw new MissingUsableArgumentException(&quot;No usable arguments found&quot;);</span>
+                    }
+                }
+            }
+            
+<span class="fc" id="L95">            nodeList = xmlDoc.getElementsByTagName(&quot;group&quot;);</span>
+<span class="fc" id="L96">            List&lt;List&lt;String&gt;&gt; groupList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            for (int i = 0; i &lt; nodeList.getLength(); i++) {</span>
+<span class="fc" id="L98">                Node node = nodeList.item(i);</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">                if (node.getNodeType() == Node.ELEMENT_NODE) {</span>
+<span class="fc" id="L100">                    Element e = (Element) node;</span>
+<span class="fc" id="L101">                    NodeList args = e.getElementsByTagName(&quot;args&quot;);</span>
+<span class="fc" id="L102">                    List&lt;String&gt; argList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                    for (int j = 0; j &lt; args.getLength(); j++) {</span>
+<span class="fc" id="L104">                        argList.add(args.item(j).getTextContent());</span>
+                    }
+<span class="fc" id="L106">                    groupList.add(argList);</span>
+                }
+            }
+<span class="fc" id="L109">            ap.addNamedGroups(groupList);</span>
+<span class="fc" id="L110">        }catch (ParserConfigurationException | SAXException | IOException | DOMException | MissingUsableArgumentException e) {</span>
+<span class="fc" id="L111">            throw new FileErrorException(&quot;File Not Found.&quot;);</span>
+<span class="fc" id="L112">        }</span>
+<span class="fc" id="L113">        return ap;</span>
+    }
+    
+    /**  Saves data from an Argument Parser object into an XML file
+     *
+     * @param fileName file name of XML to be saved to
+     * @param a Argument Parser object to turn into XML
+     * @throws FileErrorException when file to be saved to is read only
+     */
+    public static void saveXML(String fileName, ArgumentParser a) {
+<span class="fc" id="L123">        ArgumentParser ap = a;</span>
+<span class="fc" id="L124">        File newXML = new File(fileName);</span>
+        try {
+<span class="fc" id="L126">            PrintWriter printer = new PrintWriter(newXML);</span>
+            
+<span class="fc" id="L128">            printer.println(&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;);</span>
+<span class="fc" id="L129">            printer.println(&quot;&lt;parser&gt;&quot;);</span>
+            
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            for (Map.Entry&lt;String, PositionalArgument&gt; entry : ap.positionalArgs.entrySet()) {</span>
+<span class="fc" id="L132">                String key = entry.getKey();</span>
+
+<span class="fc" id="L134">                printer.println(&quot;\t&lt;argument type=\&quot;positional\&quot;&gt;&quot;);</span>
+<span class="fc" id="L135">                printer.println(&quot;\t\t&lt;name&gt;&quot; + ap.positionalArgs.get(key).getName() + &quot;&lt;/name&gt;&quot;);</span>
+<span class="fc" id="L136">                printer.println(&quot;\t\t&lt;datatype&gt;&quot; + ap.datatypeToString(ap.positionalArgs.get(key).getDataType()) + &quot;&lt;/datatype&gt;&quot;);</span>
+<span class="fc" id="L137">                printer.println(&quot;\t\t&lt;description&gt;&quot; + ap.positionalArgs.get(key).getDescription() + &quot;&lt;/description&gt;&quot;);</span>
+<span class="fc" id="L138">                printer.println(&quot;\t\t&lt;arity&gt;&quot; + ap.positionalArgs.get(key).getNumberOfValues() + &quot;&lt;/arity&gt;&quot;);</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">                if (!isItEmpty(ap.positionalArgs.get(key).getRestrictions())) {</span>
+<span class="fc" id="L140">                    printer.println(&quot;\t\t&lt;restrictions&gt;&quot;);</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">                    for (Iterator&lt;String&gt; i = ap.positionalArgs.get(key).getRestrictions().iterator(); i.hasNext();) {</span>
+<span class="fc" id="L142">                        printer.println(&quot;\t\t\t&lt;restrict&gt;&quot; + i.next() + &quot;&lt;/restrict&gt;&quot;);</span>
+                    }
+<span class="fc" id="L144">                    printer.println(&quot;\t\t&lt;/restrictions&gt;&quot;);</span>
+                }
+                else {
+<span class="fc" id="L147">                    printer.println(&quot;\t\t&lt;restrictions&gt;&lt;/restrictions&gt;&quot;);</span>
+                }
+<span class="fc" id="L149">                printer.println(&quot;\t&lt;/argument&gt;&quot;);</span>
+                
+<span class="fc" id="L151">            }</span>
+            
+<span class="fc bfc" id="L153" title="All 2 branches covered.">            for (Map.Entry&lt;String, NamedArgument&gt; entry : ap.namedArgs.entrySet()) {</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                if (entry.getValue().getDataType() != Datatype.BOOLEAN) {</span>
+<span class="fc" id="L155">                    String key = entry.getKey();</span>
+                
+<span class="fc" id="L157">                    printer.println(&quot;\t&lt;argument type=\&quot;named\&quot;&gt;&quot;);</span>
+<span class="fc" id="L158">                    printer.println(&quot;\t\t&lt;name&gt;&quot; + ap.namedArgs.get(key).getName() + &quot;&lt;/name&gt;&quot; );</span>
+<span class="fc" id="L159">                    printer.println(&quot;\t\t&lt;default&gt;&quot; + ap.namedArgs.get(key).getDefaultValue() + &quot;&lt;/default&gt;&quot; );</span>
+<span class="fc" id="L160">                    printer.println(&quot;\t\t&lt;datatype&gt;&quot; + ap.datatypeToString(ap.namedArgs.get(key).getDataType()) + &quot;&lt;/datatype&gt;&quot; );</span>
+<span class="fc" id="L161">                    printer.println(&quot;\t\t&lt;nickname&gt;&quot; + ap.namedArgs.get(key).getNickname() + &quot;&lt;/nickname&gt;&quot; );</span>
+<span class="fc" id="L162">                    printer.println(&quot;\t\t&lt;required&gt;&quot; + ap.namedArgs.get(key).getRequired() + &quot;&lt;/required&gt;&quot; );</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">                    if (isItEmpty(ap.namedArgs.get(key).getRestrictions())) {</span>
+<span class="nc" id="L164">                        printer.println(&quot;\t\t&lt;restrictions&gt;&lt;/restrictions&gt;&quot;);</span>
+                    }
+                    else {
+<span class="fc" id="L167">                        printer.println(&quot;\t\t&lt;restrictions&gt;&quot;);</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">                        for (Iterator&lt;String&gt; i = ap.namedArgs.get(key).getRestrictions().iterator(); i.hasNext();) {</span>
+<span class="fc" id="L169">                            printer.println(&quot;\t\t\t&lt;restrict&gt;&quot; + i.next() + &quot;&lt;/restrict&gt;&quot;);</span>
+                        }
+<span class="fc" id="L171">                        printer.println(&quot;\t\t&lt;/restrictions&gt;&quot;);</span>
+                    }
+<span class="fc" id="L173">                    printer.println(&quot;\t&lt;/argument&gt;&quot;);</span>
+                }
+<span class="fc" id="L175">            }</span>
+            
+<span class="fc bfc" id="L177" title="All 2 branches covered.">            for (Map.Entry&lt;String, NamedArgument&gt; entry : ap.namedArgs.entrySet()) {</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">                if (entry.getValue().getDataType() == Datatype.BOOLEAN) {</span>
+<span class="fc" id="L179">                    String key = entry.getKey();</span>
+                
+<span class="fc" id="L181">                    printer.println(&quot;\t&lt;argument type=\&quot;flag\&quot;&gt;&quot;);</span>
+<span class="fc" id="L182">                    printer.println(&quot;\t\t&lt;flagname&gt;&quot; + key + &quot;&lt;/flagname&gt;&quot;);</span>
+<span class="fc" id="L183">                    printer.println(&quot;\t&lt;/argument&gt;&quot;);</span>
+                }
+<span class="fc" id="L185">            }</span>
+            
+<span class="fc bfc" id="L187" title="All 2 branches covered.">            if (ap.numGroups &gt; 0) {</span>
+<span class="fc" id="L188">                printer.println(&quot;\t&lt;groups&gt;&quot;);</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">                for (int i = 1; i &lt; ap.numGroups + 1; i ++) {</span>
+<span class="fc" id="L190">                    printer.println(&quot;\t\t&lt;group&gt;&quot;);</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">                    for (Map.Entry&lt;String, NamedArgument&gt; entry : ap.namedArgs.entrySet()) {</span>
+<span class="fc" id="L192">                        String key = entry.getKey();</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">                        if (ap.namedArgs.get(key).getGroup() == i) {</span>
+<span class="fc" id="L194">                            printer.println(&quot;\t\t\t&lt;args&gt;&quot; + key + &quot;&lt;/args&gt;&quot;);</span>
+                        }
+<span class="fc" id="L196">                    }</span>
+<span class="fc" id="L197">                    printer.println(&quot;\t\t&lt;/group&gt;&quot;);</span>
+                }
+<span class="fc" id="L199">                printer.println(&quot;\t&lt;/groups&gt;&quot;);</span>
+            }
+            else {
+<span class="fc" id="L202">                printer.println(&quot;\t&lt;groups&gt;&lt;/groups&gt;&quot;);</span>
+            }
+            
+<span class="fc" id="L205">            printer.print(&quot;&lt;/parser&gt;&quot;);</span>
+<span class="fc" id="L206">            printer.close();</span>
+        }
+<span class="fc" id="L208">        catch(Exception e) {</span>
+<span class="fc" id="L209">            throw new FileErrorException(&quot;Something Went Wrong.&quot;);</span>
+<span class="fc" id="L210">        }</span>
+<span class="fc" id="L211">    }</span>
+    
+    private static boolean isItEmpty(List&lt;String&gt; input) {
+<span class="pc bpc" id="L214" title="1 of 6 branches missed.">        if (input.isEmpty() || (input.size() == 1 &amp;&amp; input.get(0).equals(&quot;&quot;))) {</span>
+<span class="fc" id="L215">            return true;</span>
+        } else {
+<span class="fc" id="L217">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 2.8.5 (Jython 2.5.3 on java1.8.0_25)" generated="20150416 13:34:37.482">
+<suite source="C:\Users\Trey\Desktop\CS310\narwhal-master\acceptance\VolumeCalculateTest.txt" name="VolumeCalculateTest" id="s1">
+<test name="First Test With dog 2 true 3.5" id="s1-t1">
+<kw type="kw" name="VolumeCalculateKeywords.Initialize First Test">
+<doc></doc>
+<arguments>
+</arguments>
+<status endtime="20150416 13:34:37.841" starttime="20150416 13:34:37.841" status="PASS"></status>
+</kw>
+<kw type="kw" name="${pet} = VolumeCalculateKeywords.Get Pet">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.857">${pet} = dog</msg>
+<status endtime="20150416 13:34:37.857" starttime="20150416 13:34:37.841" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>dog</arg>
+<arg>${pet}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.857">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.857" starttime="20150416 13:34:37.857" status="PASS"></status>
+</kw>
+<kw type="kw" name="${number} = VolumeCalculateKeywords.Get Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.857">${number} = 2</msg>
+<status endtime="20150416 13:34:37.857" starttime="20150416 13:34:37.857" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>2</arg>
+<arg>${number}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.857">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.857" starttime="20150416 13:34:37.857" status="PASS"></status>
+</kw>
+<kw type="kw" name="${rainy} = VolumeCalculateKeywords.Get Rainy">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.857">${rainy} = true</msg>
+<status endtime="20150416 13:34:37.857" starttime="20150416 13:34:37.857" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>true</arg>
+<arg>${rainy}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.872">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.872" starttime="20150416 13:34:37.872" status="PASS"></status>
+</kw>
+<kw type="kw" name="${bathrooms} = VolumeCalculateKeywords.Get Bathrooms">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.872">${bathrooms} = 3.5</msg>
+<status endtime="20150416 13:34:37.872" starttime="20150416 13:34:37.872" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>3.5</arg>
+<arg>${bathrooms}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.872">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.872" starttime="20150416 13:34:37.872" status="PASS"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status critical="yes" endtime="20150416 13:34:37.872" starttime="20150416 13:34:37.841" status="PASS"></status>
+</test>
+<test name="Second Test With 7 5 2" id="s1-t2">
+<kw type="kw" name="VolumeCalculateKeywords.Initialize Second Test">
+<doc></doc>
+<arguments>
+</arguments>
+<status endtime="20150416 13:34:37.888" starttime="20150416 13:34:37.888" status="PASS"></status>
+</kw>
+<kw type="kw" name="${length} = VolumeCalculateKeywords.Get Lengths">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.888">${length} = 7</msg>
+<status endtime="20150416 13:34:37.888" starttime="20150416 13:34:37.888" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>7</arg>
+<arg>${length}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.888">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.888" starttime="20150416 13:34:37.888" status="PASS"></status>
+</kw>
+<kw type="kw" name="${width} = VolumeCalculateKeywords.Get Widths">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.888">${width} = 5</msg>
+<status endtime="20150416 13:34:37.888" starttime="20150416 13:34:37.888" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>5</arg>
+<arg>${width}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.888">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.888" starttime="20150416 13:34:37.888" status="PASS"></status>
+</kw>
+<kw type="kw" name="${height} = VolumeCalculateKeywords.Get Heights">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.903">${height} = 2</msg>
+<status endtime="20150416 13:34:37.903" starttime="20150416 13:34:37.903" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>2</arg>
+<arg>${height}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.903">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.903" starttime="20150416 13:34:37.903" status="PASS"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status critical="yes" endtime="20150416 13:34:37.903" starttime="20150416 13:34:37.872" status="PASS"></status>
+</test>
+<test name="Third Test With true 6 cat 8 5" id="s1-t3">
+<kw type="kw" name="VolumeCalculateKeywords.Initialize Third Test">
+<doc></doc>
+<arguments>
+</arguments>
+<status endtime="20150416 13:34:37.903" starttime="20150416 13:34:37.903" status="PASS"></status>
+</kw>
+<kw type="kw" name="${boolean} = VolumeCalculateKeywords.Get Boolean">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.919">${boolean} = true</msg>
+<status endtime="20150416 13:34:37.919" starttime="20150416 13:34:37.919" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>true</arg>
+<arg>${boolean}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.919">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.919" starttime="20150416 13:34:37.919" status="PASS"></status>
+</kw>
+<kw type="kw" name="${length} = VolumeCalculateKeywords.Get Length">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.919">${length} = 6</msg>
+<status endtime="20150416 13:34:37.919" starttime="20150416 13:34:37.919" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>6</arg>
+<arg>${length}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.919">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.919" starttime="20150416 13:34:37.919" status="PASS"></status>
+</kw>
+<kw type="kw" name="${animal} = VolumeCalculateKeywords.Get Animal">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.935">${animal} = cat</msg>
+<status endtime="20150416 13:34:37.919" starttime="20150416 13:34:37.919" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>cat</arg>
+<arg>${animal}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.935">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.935" starttime="20150416 13:34:37.935" status="PASS"></status>
+</kw>
+<kw type="kw" name="${width} = VolumeCalculateKeywords.Get Width">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.950">${width} = 8</msg>
+<status endtime="20150416 13:34:37.950" starttime="20150416 13:34:37.950" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>8</arg>
+<arg>${width}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.950">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.950" starttime="20150416 13:34:37.950" status="PASS"></status>
+</kw>
+<kw type="kw" name="${heigth} = VolumeCalculateKeywords.Get Heigth">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.966">${heigth} = 5</msg>
+<status endtime="20150416 13:34:37.966" starttime="20150416 13:34:37.950" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>5</arg>
+<arg>${heigth}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.966">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.966" starttime="20150416 13:34:37.966" status="PASS"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status critical="yes" endtime="20150416 13:34:37.966" starttime="20150416 13:34:37.903" status="PASS"></status>
+</test>
+<test name="Four Test With life blue round" id="s1-t4">
+<kw type="kw" name="VolumeCalculateKeywords.Initialize Four Test">
+<doc></doc>
+<arguments>
+</arguments>
+<status endtime="20150416 13:34:37.966" starttime="20150416 13:34:37.966" status="PASS"></status>
+</kw>
+<kw type="kw" name="${world} = VolumeCalculateKeywords.Get World">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.966">${world} = life</msg>
+<status endtime="20150416 13:34:37.966" starttime="20150416 13:34:37.966" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>life</arg>
+<arg>${world}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.966">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.966" starttime="20150416 13:34:37.966" status="PASS"></status>
+</kw>
+<kw type="kw" name="${color} = VolumeCalculateKeywords.Get Color">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.982">${color} = blue</msg>
+<status endtime="20150416 13:34:37.982" starttime="20150416 13:34:37.966" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>blue</arg>
+<arg>${color}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.982">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.982" starttime="20150416 13:34:37.982" status="PASS"></status>
+</kw>
+<kw type="kw" name="${ball} = VolumeCalculateKeywords.Get Ball">
+<doc></doc>
+<arguments>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.982">${ball} = round</msg>
+<status endtime="20150416 13:34:37.982" starttime="20150416 13:34:37.982" status="PASS"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>round</arg>
+<arg>${ball}</arg>
+</arguments>
+<msg level="INFO" timestamp="20150416 13:34:37.982">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status endtime="20150416 13:34:37.982" starttime="20150416 13:34:37.982" status="PASS"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status critical="yes" endtime="20150416 13:34:37.982" starttime="20150416 13:34:37.966" status="PASS"></status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status endtime="20150416 13:34:37.982" starttime="20150416 13:34:37.482" status="PASS"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0">Critical Tests</stat>
+<stat pass="4" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="4" fail="0" name="VolumeCalculateTest" id="s1">VolumeCalculateTest</stat>
+</suite>
+</statistics>
+<errors>
+<msg level="WARN" timestamp="20150416 13:34:37.919">Keyword 'Get Length' found both from a user created test library 'VolumeCalculateKeywords' and Robot Framework standard library 'BuiltIn'. The user created keyword is used. To select explicitly, and to get rid of this warning, use either 'VolumeCalculateKeywords.Get Length' or 'BuiltIn.Get Length'.</msg>
+</errors>
+</robot>
